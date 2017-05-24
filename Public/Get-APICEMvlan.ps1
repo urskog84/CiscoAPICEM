@@ -7,7 +7,7 @@
 Gets all vlan form a specific network device ID
 
 .EXAMPLE
-Get-APICEMnetwokr-device -Computername $APIC_HOST -APICticket $APICticket
+Get-APICEMvlan -Computername $APIC_HOST -APICticket $APICticket -DeviceID "5b5ea8da-8c23-486a-b95e-7429684d25fc"
 
 #>
 Function Get-APICEMvlan{

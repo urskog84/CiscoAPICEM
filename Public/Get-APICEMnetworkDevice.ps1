@@ -10,7 +10,7 @@ Gets the list of all network devices filtered using management IP address, mac a
 Get-APICEMnetwokr-device -Computername $APIC_HOST -APICticket $APICticket
 
 #>
-Function Get-APICEMnetwokr-device{
+Function Get-APICEMnetwokrDevice{
     [OutputType([system.object[]])]
     [cmdletbinding()]
     param(
