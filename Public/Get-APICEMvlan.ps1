@@ -1,16 +1,16 @@
 <#
 
 .SYNOPSIS
- GET all from APIC Controller
+ GET all vlan from Netwok Device
 
 .DESCRIPTION
-Gets the list of all network devices filtered using management IP address, mac address, hostname and location name
+Gets all vlan form a specific network device ID
 
 .EXAMPLE
 Get-APICEMnetwokr-device -Computername $APIC_HOST -APICticket $APICticket
 
 #>
-Function Get-APICEMnetwokr-device{
+Function Get-APICEMvlan{
     [OutputType([system.object[]])]
     [cmdletbinding()]
     param(
@@ -18,11 +18,14 @@ Function Get-APICEMnetwokr-device{
         [String]$Computername,
         [Parameter(Mandatory = $true,Position = 0,HelpMessage = 'APICticket object use Get-APICEMticket')]
         [ValidateNotNullorEmpty()]
-        [psobject]$APICticket
+        [psobject]$APICticket,
+        [Parameter(Mandatory = $true,Position = 0,HelpMessage = 'DeviceID')]
+        [ValidateNotNullorEmpty()]
+        [String]$DeviceID
         )
 
     Begin {
-        $Uri = "https://" + $Computername + "/api/v1/network-device"
+        $Uri = "https://" + $Computername + "/api/v1/network-device/" + $DeviceID + "/vlan"
         $Headers = Get-Headers -APICticket $APICticket
         }
 
