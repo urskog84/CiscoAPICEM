@@ -13,6 +13,8 @@ Import-Module "C:\GIT\CiscoAPICEM"
 
 $APIC_HOST = "sandboxapic.cisco.com"
 
-if(!$APIC_cred){$APIC_CRED = Get-Credential -UserName "devnetuser"}
+if(!$APIC_cred){$APIC_CRED = Get-Credential -Message "Cisco123!"       -UserName "devnetuser"}
 
 $APICticket = Get-APICEMTicket -Credential $APIC_cred -Computername $APIC_HOST
+
+$NetworkDevices = Get-APICEMnetwokrDevice -Computername $APIC_HOST -APICticket $APICticket

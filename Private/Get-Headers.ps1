@@ -6,7 +6,7 @@ Function Get-Headers{
     )
 Process {
     $headers = @{
-       'X-Auth-token' = $APICticket.response.serviceTicket
+       'X-Auth-token' = $APICticket.serviceTicket
         }
     return $headers
     }

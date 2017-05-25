@@ -1,16 +1,17 @@
 <#
 
 .SYNOPSIS
- GET all from APIC Controller
+ GET all devices from APIC Controller
 
 .DESCRIPTION
 Gets the list of all network devices filtered using management IP address, mac address, hostname and location name
 
 .EXAMPLE
-Get-APICEMnetwokr-device -Computername $APIC_HOST -APICticket $APICticket
+Get-APICEMnetwokrDevice -Computername $APIC_HOST -APICticket $APICticket
 
 #>
-Function Get-APICEMnetwokrDevice{
+
+Function Get-APICEMnetworkDevice{
     [OutputType([system.object[]])]
     [cmdletbinding()]
     param(

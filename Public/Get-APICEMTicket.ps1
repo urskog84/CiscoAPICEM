@@ -10,7 +10,7 @@ POST request to get API Key/ServiceTicket
 $APICticket = Get-APICEMTicket -Credential $APICcred -Computername $APICEM
 
 #>
-function Get-APICEMTicket{
+function Get-APICEMticket{
     Param(
     [Parameter(Mandatory = $true,Position = 0,HelpMessage = 'Credentials')]
     [ValidateNotNullorEmpty()]
@@ -32,10 +32,9 @@ function Get-APICEMTicket{
 "@
 }
     Process {
-   $JsonBody
     $response = Invoke-WebRequest -Uri $URIaddress -ContentType 'application/json'-Method Post -Body $JsonBody
     $response = $response.content | ConvertFrom-Json
-    return $response
+    return $response.response
 #tray
 }
 }
