@@ -68,9 +68,21 @@ Describe 'Get-APICEMhost' {
 
 Describe 'Get-APICEMpnp-device'{
     it "Get all pnp devices" {
-        $pnpdevices = Get-APICEMpnpDevice -verbose
-        $pnpdevices.Count | Should -BeGreaterThan 0
-
+        $pnpdevices = Get-APICEMpnpDevice
+        $pnpdevices | Should -BeNullOrEmpty
     }
 }
 
+Describe 'Get-APICEMnetworkDevoceConfig'{
+    it "Get all network Devoce Config" {
+        $Config =    Get-APICEMnetworkDevoceConfig
+        $Config.Count | Should -BeGreaterThan 0
+    }    
+}
+
+Describe 'Disconnect-APICEM' {
+    it "remove Global vaibale" {
+        Disconnect-APICEM
+        test-path -path Variable:APICEMConnection | Should -Be $false
+    }
+}
