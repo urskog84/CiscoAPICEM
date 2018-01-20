@@ -1,3 +1,4 @@
+Function GET-APICEMpnpDevice {
 <#
 
 .SYNOPSIS
@@ -10,20 +11,17 @@ Gets the list of all network devices filtered using management IP address, mac a
 Get-APICEMnetwokrDevice -Computername $APIC_HOST -APICticket $APICticket
 
 #>
-
-Function Get-APICEMnetworkDevice{
     [OutputType([system.object[]])]
     [cmdletbinding()]
     param(
-        [Parameter (Mandatory=$False)]
+        [Parameter (Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
-        [PSCustomObject]$connect=$Global:APICEMConnection
-        )
+        [PSCustomObject]$connect = $Global:APICEMConnection
+    )
 
     Begin {
-        $Uri = $connect.baseURL + "/network-device"
+            $Uri = $connect.baseURL + "/pnp-device?matchDeviceState=true&offset=1&limit=10"
         }
-
     Process {
         $Response = Invoke-RestMethod -Uri $Uri -Method "Get" -Headers $connect.Headers
         return $Response.response
