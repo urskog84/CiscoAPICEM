@@ -80,9 +80,34 @@ Describe 'Get-APICEMnetworkDevoceConfig'{
     }    
 }
 
+Describe 'Get-APICEMinterface' {
+    it "Get all interface" {
+        $interface = Get-APICEMinterface
+        $interface.Count | Should -BeGreaterThan 0
+    }
+    it "Get  all inteface from NetwrokDeviceID" {
+        $interface = Get-APICEMinterface -NetworkDeviceID "4af8bf34-295f-46f4-97b7-0a2d2ea4cf22"
+        $interface.Count | Should -BeGreaterThan 0
+
+    }
+    it "Get inteface from NetwrokDeviceID filter by InterfaceName" {
+        $interface = Get-APICEMinterface -NetworkDeviceID "4af8bf34-295f-46f4-97b7-0a2d2ea4cf22" -InterfaceName "GigabitEthernet5/30" -Verbose
+        $interface.portName | Should -Be "GigabitEthernet5/30"
+
+    }
+    it "Get all inteface from inteface ip address " {
+        $interface = Get-APICEMinterface -Ip "172.28.97.249"
+        $interface.ipv4Address | Should -Be "172.28.97.249"
+    }
+}
+
+
+<#
 Describe 'Disconnect-APICEM' {
     it "remove Global vaibale" {
         Disconnect-APICEM
         test-path -path Variable:APICEMConnection | Should -Be $false
     }
 }
+
+#>
