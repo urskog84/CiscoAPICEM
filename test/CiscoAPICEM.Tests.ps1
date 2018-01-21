@@ -85,7 +85,7 @@ Describe 'Get-APICEMinterface' {
         $interface = Get-APICEMinterface
         $interface.Count | Should -BeGreaterThan 0
     }
-    it "Get  all inteface from NetwrokDeviceID" {
+    it "Get all inteface from NetwrokDeviceID" {
         $interface = Get-APICEMinterface -NetworkDeviceID "4af8bf34-295f-46f4-97b7-0a2d2ea4cf22"
         $interface.Count | Should -BeGreaterThan 0
 
@@ -106,11 +106,24 @@ Describe 'Get-APICEMvlan' {
         $vlan = Get-APICEMvlan -NetworkDeviceID "c8ed3e49-5eeb-4dee-b120-edeb179c8394" 
         $vlan.Count | Should -BeGreaterThan 0
     }
-    it "Get all Subinterface NetworkDevice id" {
+    it "Get all Subinterface from NetworkDevice id" {
     $vlan = Get-APICEMvlan -NetworkDeviceID "d337811b-d371-444c-a49f-9e2791f955b4" -IsSubinterface true
     $vlan.Count | Should -BeGreaterThan 0
     }
 }
+
+
+Describe 'Get-GlobalCredental' {
+    it "Get all GlobalCredentals with sub type" {
+        $GlobCred = Get-APICEMGlobalCredential -credentialSubType "SNMPV2_WRITE_COMMUNITY" -Verbose
+        $GlobCred.Count | Should -BeGreaterThan 0
+    }
+    it "Get Specific GlobalCredental from id" {
+        $GlobCred = Get-APICEMGlobalCredential -ID "1a91b12a-62f7-4339-a4b4-9dd938f29684"
+        $GlobCred.count | Should -BeGreaterThan 0
+    }
+}
+
 
 <#
 Describe 'Disconnect-APICEM' {
