@@ -114,13 +114,13 @@ Describe 'Get-APICEMvlan' {
 
 
 Describe 'Get-GlobalCredental' {
-    it "Get all GlobalCredentals with sub type" {
-        $GlobCred = Get-APICEMGlobalCredential -credentialSubType "SNMPV2_WRITE_COMMUNITY" -Verbose
-        $GlobCred.Count | Should -BeGreaterThan 0
+    it "Get all GlobalCredentals with sub type CLI " {
+        $GlobCred = Get-APICEMGlobalCredential -credentialSubType CLI
+        $GlobCred.id.count | Should -BeGreaterThan 0
     }
-    it "Get Specific GlobalCredental from id" {
+    it "Get Specific GlobalCredental from ID" {
         $GlobCred = Get-APICEMGlobalCredential -ID "1a91b12a-62f7-4339-a4b4-9dd938f29684"
-        $GlobCred.count | Should -BeGreaterThan 0
+        $GlobCred.count | Should -Be 1
     }
 }
 
