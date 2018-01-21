@@ -17,13 +17,22 @@ Function Get-APICEMvlan{
         [Parameter (Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
         [PSCustomObject]$connect = $Global:APICEMConnection,
-        [Parameter(Mandatory = $true,Position = 0,HelpMessage = 'NetworkDeviceID')]
+        [Parameter(Mandatory = $true,HelpMessage = 'NetworkDeviceID')]
         [ValidateNotNullorEmpty()]
-        [String]$NetworkDeviceID
+        [String]$NetworkDeviceID,
+        [Parameter(Mandatory = $False,HelpMessage = 'IsSubInterface ')]
+        [ValidateNotNullorEmpty()]
+        [ValidateSet("true", "false")]
+        [string]$IsSubinterface="false"
         )
 
     Begin {
         $Uri = $connect.baseURL + "/network-device/" + $NetworkDeviceID + "/vlan"
+
+        if ($IsSubinterface -eq "true") {
+            $Uri = $connect.baseURL + "/network-device/" + $NetworkDeviceID + "/vlan?interfaceType=subInterface"
+        }
+
         }
 
     Process {

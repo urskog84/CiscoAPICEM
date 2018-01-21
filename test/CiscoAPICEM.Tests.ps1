@@ -105,7 +105,10 @@ Describe 'Get-APICEMvlan' {
     it "Get all vlan from NetworkDevice id" {
         $vlan = Get-APICEMvlan -NetworkDeviceID "c8ed3e49-5eeb-4dee-b120-edeb179c8394" 
         $vlan.Count | Should -BeGreaterThan 0
-
+    }
+    it "Get all Subinterface NetworkDevice id" {
+    $vlan = Get-APICEMvlan -NetworkDeviceID "d337811b-d371-444c-a49f-9e2791f955b4" -IsSubinterface true
+    $vlan.Count | Should -BeGreaterThan 0
     }
 }
 
