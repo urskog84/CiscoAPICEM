@@ -14,23 +14,20 @@ Function Get-APICEMvlan{
     [OutputType([system.object[]])]
     [cmdletbinding()]
     param(
-        [Parameter(Mandatory = $true,Position = 1,HelpMessage = "hostname.domain.com")]
-        [String]$Computername,
-        [Parameter(Mandatory = $true,Position = 0,HelpMessage = 'APICticket object use Get-APICEMticket')]
+        [Parameter (Mandatory = $False)]
+        [ValidateNotNullOrEmpty()]
+        [PSCustomObject]$connect = $Global:APICEMConnection,
+        [Parameter(Mandatory = $true,Position = 0,HelpMessage = 'NetworkDeviceID')]
         [ValidateNotNullorEmpty()]
-        [psobject]$APICticket,
-        [Parameter(Mandatory = $true,Position = 0,HelpMessage = 'DeviceID')]
-        [ValidateNotNullorEmpty()]
-        [String]$DeviceID
+        [String]$NetworkDeviceID
         )
 
     Begin {
-        $Uri = "https://" + $Computername + "/api/v1/network-device/" + $DeviceID + "/vlan"
-        $Headers = Get-Headers -APICticket $APICticket
+        $Uri = $connect.baseURL + "/network-device/" + $NetworkDeviceID + "/vlan"
         }
 
     Process {
-        $Response = Invoke-RestMethod -Uri $Uri -Method "Get" -Headers $Headers 
+        $Response = Invoke-RestMethod -Uri $Uri -Method "Get" -Headers $connect.Headers 
         return $Response.response
     }
 }

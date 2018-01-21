@@ -91,7 +91,7 @@ Describe 'Get-APICEMinterface' {
 
     }
     it "Get inteface from NetwrokDeviceID filter by InterfaceName" {
-        $interface = Get-APICEMinterface -NetworkDeviceID "4af8bf34-295f-46f4-97b7-0a2d2ea4cf22" -InterfaceName "GigabitEthernet5/30" -Verbose
+        $interface = Get-APICEMinterface -NetworkDeviceID "4af8bf34-295f-46f4-97b7-0a2d2ea4cf22" -InterfaceName "GigabitEthernet5/30"
         $interface.portName | Should -Be "GigabitEthernet5/30"
 
     }
@@ -101,6 +101,13 @@ Describe 'Get-APICEMinterface' {
     }
 }
 
+Describe 'Get-APICEMvlan' {
+    it "Get all vlan from NetworkDevice id" {
+        $vlan = Get-APICEMvlan -NetworkDeviceID "c8ed3e49-5eeb-4dee-b120-edeb179c8394" 
+        $vlan.Count | Should -BeGreaterThan 0
+
+    }
+}
 
 <#
 Describe 'Disconnect-APICEM' {
