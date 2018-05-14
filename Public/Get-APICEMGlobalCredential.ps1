@@ -18,7 +18,7 @@ Function Get-APICEMGlobalCredential {
         [ValidateNotNullOrEmpty()]
         [PSCustomObject]$connect = $Global:APICEMConnection,
         [Parameter (Mandatory = $False, HelpMessage = 'Credential SubType')]
-        [ValidateSet("CLI", "SNMPV2_READ_COMMUNITY", "SNMPV2_WRITE_COMMUNITY", "SNMPV3")]
+        [ValidateSet("CLI","SNMPV2_READ_COMMUNITY","SNMPV2_WRITE_COMMUNITY","SNMPV3")]
         [String]$credentialSubType,
         [Parameter (Mandatory = $False, HelpMessage = 'ID')]
         [ValidateNotNullOrEmpty()]

@@ -2,6 +2,21 @@
 $ModuleManifestName = 'CiscoAPICEM.psd1'
 $ModuleManifestPath = "$PSScriptRoot\..\$ModuleManifestName"
 
+
+
+add-type @"
+    using System.Net;
+    using System.Security.Cryptography.X509Certificates;
+    public class TrustAllCertsPolicy : ICertificatePolicy {
+        public bool CheckValidationResult(
+            ServicePoint srvPoint, X509Certificate certificate,
+            WebRequest request, int certificateProblem) {
+            return true;
+        }
+    }
+"@
+[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+
 Describe 'Module Manifest Tests' {
     It 'Passes Test-ModuleManifest' {
         Test-ModuleManifest -Path $ModuleManifestPath
@@ -21,10 +36,10 @@ $APIC_CRED = New-Object System.Management.Automation.PSCredential ("devnetuser",
 
 Describe 'Get-APICEMticket' { 
     it "Test Tciket funtion" {
-    $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST
-    $token.response.serviceTicket            | Should -Match "-cas"
-    $token.response.idleTimeout.Count         | Should -Be 1
-    $token.response.sessionTimeout.Count      | Should -Be 1
+        $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST
+        $token.response.serviceTicket            | Should -Match "-cas"
+        $token.response.idleTimeout.Count         | Should -Be 1
+        $token.response.sessionTimeout.Count      | Should -Be 1
     }
 }
 
@@ -66,16 +81,16 @@ Describe 'Get-APICEMhost' {
     }
 }
 
-Describe 'Get-APICEMpnp-device'{
+Describe 'Get-APICEMpnp-device' {
     it "Get all pnp devices" {
         $pnpdevices = Get-APICEMpnpDevice
         $pnpdevices | Should -BeNullOrEmpty
     }
 }
 
-Describe 'Get-APICEMnetworkDevoceConfig'{
+Describe 'Get-APICEMnetworkDevoceConfig' {
     it "Get all network Devoce Config" {
-        $Config =    Get-APICEMnetworkDevoceConfig
+        $Config = Get-APICEMnetworkDevoceConfig
         $Config.Count | Should -BeGreaterThan 0
     }    
 }
@@ -107,8 +122,8 @@ Describe 'Get-APICEMvlan' {
         $vlan.Count | Should -BeGreaterThan 0
     }
     it "Get all Subinterface from NetworkDevice id" {
-    $vlan = Get-APICEMvlan -NetworkDeviceID "d337811b-d371-444c-a49f-9e2791f955b4" -IsSubinterface true
-    $vlan.Count | Should -BeGreaterThan 0
+        $vlan = Get-APICEMvlan -NetworkDeviceID "d337811b-d371-444c-a49f-9e2791f955b4" -IsSubinterface true
+        $vlan.Count | Should -BeGreaterThan 0
     }
 }
 
@@ -134,3 +149,10 @@ Describe 'Disconnect-APICEM' {
 }
 
 #>
+
+Describe 'Add-APICEMfile' {
+    it "Upload Config file POD-SWA-02.txt" {
+        $test = Add-APICEMfile -FilePath '.\test\POD-SWA-02.txt' -NameSpace config -Verbose
+        $test.id | Should -Not -Be $null
+    }
+}
