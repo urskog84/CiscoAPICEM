@@ -84,7 +84,7 @@ Describe 'Get-APICEMhost' {
 Describe 'Get-APICEMpnp-device' {
     it "Get all pnp devices" {
         $pnpdevices = Get-APICEMpnpDevice
-        $pnpdevices | Should -BeNullOrEmpty
+        $pnpdevices | Should -no -BeNullOrEmpty
     }
 }
 
@@ -140,6 +140,12 @@ Describe 'Get-GlobalCredental' {
 }
 
 
+Describe 'Add-APICEMfile' {
+    it "Upload Config file POD-SWA-02.txt" {
+        $test = Add-APICEMfile -FilePath '.\test\POD-SWA-02.txt' -NameSpace config
+        $test.response.name | Should -Be "POD-SWA-02.txt"
+    }
+}
 <#
 Describe 'Disconnect-APICEM' {
     it "remove Global vaibale" {
@@ -149,10 +155,3 @@ Describe 'Disconnect-APICEM' {
 }
 
 #>
-
-Describe 'Add-APICEMfile' {
-    it "Upload Config file POD-SWA-02.txt" {
-        $test = Add-APICEMfile -FilePath '.\test\POD-SWA-02.txt' -NameSpace config -Verbose
-        $test.id | Should -Not -Be $null
-    }
-}
