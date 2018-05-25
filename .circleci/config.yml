@@ -7,7 +7,8 @@ jobs:
       - checkout
       - run:
           name: Install powershell
-          command: apt-get install powershell
+          command: apt-get update
+          command: apt-get install -y powershell
       - run:
           name: Start powershell
           command: powershell
