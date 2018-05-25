@@ -25,7 +25,7 @@ jobs:
           command: apt-get -f install -y powershell
       - run:
           name: Start powershell
-          command: powershell
+          command: pwsh
       - run:
           name: powershell test
           command: get-host
