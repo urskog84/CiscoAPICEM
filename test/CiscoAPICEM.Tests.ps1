@@ -25,7 +25,7 @@ Describe 'Module Manifest Tests' {
 }
 
 
-Import-Module "C:\git\CiscoAPICEM" -Force
+Import-Module "$PSScriptRoot\..\CiscoAPICEM" -Force
 $APIC_HOST = "sandboxapic.cisco.com"
 
 
@@ -69,10 +69,10 @@ Describe 'Get-APICEMhost' {
         $APICHosts = Get-APICEMhost -connect $APIPConnection
         $APICHosts.Count | Should -BeGreaterThan 0
     }
-    it "list host with mac e8:9a:8f:7a:22:99" {
+    it "list host with mac 5c:f9:dd:52:07:78" {
         #$APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
-        $APICHost = Get-APICEMhost -mac "e8:9a:8f:7a:22:99"
-        $APICHost.hostMac | Should -Be "e8:9a:8f:7a:22:99"
+        $APICHost = Get-APICEMhost -mac "5c:f9:dd:52:07:78"
+        $APICHost.hostMac | Should -Be "5c:f9:dd:52:07:78"
     }
     it "list host with ip 10.1.15.117" {
         #$APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
@@ -142,16 +142,53 @@ Describe 'Get-GlobalCredental' {
 
 Describe 'Add-APICEMfile' {
     it "Upload Config file POD-SWA-02.txt" {
-        $test = Add-APICEMfile -FilePath '.\test\POD-SWA-02.txt' -NameSpace config
-        $test.response.name | Should -Be "POD-SWA-02.txt"
+        $file = Add-APICEMfile -FilePath "$PSScriptRoot\POD-SWA-02.txt" -NameSpace config
+        $file.response.name | Should -Be "POD-SWA-02.txt"
     }
 }
-<#
+
+
+Describe 'Get-APICEMfile' {
+    it "List all files" {
+        $allFiles = Get-APICEMfile -NameSpace config
+        $allFiles.count | Should -BeGreaterThan 0
+    }
+}
+
+
+# Setup fore Remove-APICEMfile
+$allFiles = Get-APICEMfile -NameSpace config 
+$removefile = $allFiles | Where-Object {$_.name -EQ "POD-SWA-02.txt"}
+Describe 'Remove-APICEMfile' {
+    it "Remove file POD-SWA-02.txt " {
+        $test = Remove-APICEMfile -id $removefile.id 
+        $test | Should -Match "is deleted successfully"
+    }
+}
+
+
+Describe 'Get-APICEMpnpProject' {
+    it "List all pnpProject" {
+        $test = Get-APICEMpnpProject
+        $test.count | Should -BeGreaterThan 0
+        $test[0].provisionedBy | Should -MatchExactly "devnetuser"
+    }
+}
+
+
+Describe 'Add-APICEMpnpProject' {
+    it "Add a pnpProject" {
+        $test = Add-APICEMpnpProject -state IN_PROGRESS -siteName FSP -tftpServer "192.168.1.20" -tftpPath "/"  -Verbose
+        $test.taskId | Should -not -be $null
+        $test.url | Should -not -be $null
+    }
+}
+
+
+
 Describe 'Disconnect-APICEM' {
     it "remove Global vaibale" {
         Disconnect-APICEM
         test-path -path Variable:APICEMConnection | Should -Be $false
     }
 }
-
-#>
