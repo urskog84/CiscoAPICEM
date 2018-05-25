@@ -10,7 +10,7 @@ jobs:
           command: apt-get update
       - run:
           name: Apt curl
-          command: apt-get install -y curl wget gnupg gnupg2 gnupg1 libcurl3
+          command: apt-get install -y curl wget gnupg gnupg2 gnupg1
       - run:
           name: apt-key
           command: 'wget --no-check-certificate -qO - https://packages.microsoft.com/keys/microsoft.asc | apt-key add -'
