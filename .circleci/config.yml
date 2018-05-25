@@ -13,7 +13,7 @@ jobs:
           command: apt-get install -y curl wget gnupg gnupg2 gnupg1
       - run:
           name: apt-key
-          command: 'wget https://packages.microsoft.com/keys/microsoft.asc | apt-key add -'
+          command: '--no-check-certificate -qO - https://packages.microsoft.com/keys/microsoft.asc | apt-key add -'
       - run:
           name: sources.list
           command: 'curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/microsoft.list'
