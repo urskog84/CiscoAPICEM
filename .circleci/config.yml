@@ -5,6 +5,12 @@ jobs:
       - image: ubuntu:latest
     steps:
       - checkout
+       - run:
+          name: Apt update
+          command: apt-get update
+       - run:
+          name: Apt curl
+          command: apt-get install -y curl
       - run:
           name: apt-key
           command: curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
