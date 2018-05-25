@@ -22,7 +22,7 @@ jobs:
           command: apt-get update
       - run:
           name: Apt install
-          command: apt-get install -y powershell
+          command: apt-get -f install -y powershell
       - run:
           name: Start powershell
           command: powershell
