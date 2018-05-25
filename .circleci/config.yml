@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: microsoft/powershell
+    steps:
+      - checkout
+      - run:
+          name: Start Powershell
+          command: powershell
+      - run:
+          name: Start Pester test
+          command: invoke-pester
