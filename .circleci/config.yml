@@ -8,6 +8,3 @@ jobs:
       - run:
           name: Hello
           command: Write-Host "Hello, World!"
-      - run:
-          name: Start Pester test
-          command: 
