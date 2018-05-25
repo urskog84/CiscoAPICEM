@@ -6,8 +6,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install powershell
+          name: Apt update
           command: apt-get update
+      - run:
+          name: Apt install
           command: apt-get install -y powershell
       - run:
           name: Start powershell
