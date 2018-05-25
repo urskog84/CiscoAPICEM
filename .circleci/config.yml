@@ -5,10 +5,10 @@ jobs:
       - image: ubuntu:latest
     steps:
       - checkout
-       - run:
+      - run:
           name: Apt update
           command: apt-get update
-       - run:
+      - run:
           name: Apt curl
           command: apt-get install -y curl
       - run:
