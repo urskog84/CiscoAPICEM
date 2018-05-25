@@ -6,8 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Start Powershell
-          command: powershell
+          name: Hello
+          command: Write-Host "Hello, World!"
       - run:
           name: Start Pester test
-          command: invoke-pester
+          command: 
