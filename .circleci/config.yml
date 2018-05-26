@@ -31,7 +31,4 @@ jobs:
           command: cat /etc/os-release 
       - run:
           name: Start powershell
-          command: pwsh
-      - run:
-          name: powershell test
-          command: get-host
+          command: pwsh -command "get-host"
