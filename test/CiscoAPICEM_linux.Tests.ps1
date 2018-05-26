@@ -4,31 +4,9 @@ $ModuleManifestPath = "$PSScriptRoot/../$ModuleManifestName"
 
 
 
-# Allow untrusted SSL certs
-if ($PSVersionTable.PSEdition -eq 'Core') {
-    $PSDefaultParameterValues.Add("Invoke-RestMethod:SkipCertificateCheck", $true)
-    $PSDefaultParameterValues.Add("Invoke-WebRequest:SkipCertificateCheck", $true)
-}
-else {
-    Add-Type -TypeDefinition @"
-        using System.Net;
-        using System.Security.Cryptography.X509Certificates;
-        public class TrustAllCertsPolicy : ICertificatePolicy {
-            public bool CheckValidationResult(
-                ServicePoint srvPoint, X509Certificate certificate,
-                WebRequest request, int certificateProblem) {
-                return true;
-            }
-        }
-"@
-    [System.Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
-}#ifelse
 
-Describe 'Core or Not Core' {
-    it 'CORE PSEdition' {
-        test-path -path Variable:PSVersionTable.PSEdition | Should -Match "Core"
-    }
-}
+$PSDefaultParameterValues.Add("Invoke-RestMethod:SkipCertificateCheck", $true)
+$PSDefaultParameterValues.Add("Invoke-WebRequest:SkipCertificateCheck", $true)
 
 Describe 'Module Manifest Tests' {
     It 'Passes Test-ModuleManifest' {
