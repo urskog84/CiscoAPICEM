@@ -24,6 +24,9 @@ jobs:
           name: Apt install
           command: apt-get -f install -y powershell
       - run:
+          name: os-relses
+          command: cat /etc/os-release 
+      - run:
           name: Start powershell
           command: pwsh
       - run:
