@@ -22,7 +22,7 @@ jobs:
           command: apt-get update && apt-get upgrade -y   
       - run:
           name: Apt install
-          command: apt-get -f install -y powershell
+          command: apt-get -f install -y powershell=powershell_6.0.2-1.ubuntu.17.04
       - run:
           name: apt-cache policy
           command: apt-cache policy powershell
