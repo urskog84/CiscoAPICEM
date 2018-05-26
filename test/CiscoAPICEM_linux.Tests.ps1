@@ -3,8 +3,6 @@ $ModuleManifestName = 'CiscoAPICEM.psd1'
 $ModuleManifestPath = "$PSScriptRoot/../$ModuleManifestName"
 
 
-<#
-
 add-type @"
     using System.Net;
     using System.Security.Cryptography.X509Certificates;
@@ -17,7 +15,7 @@ add-type @"
     }
 "@
 [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
-#>
+
 
 Describe 'Module Manifest Tests' {
     It 'Passes Test-ModuleManifest' {

@@ -11,7 +11,7 @@
     RootModule        = 'CiscoAPICEM.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.1.1'
+    ModuleVersion     = '0.1.2'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -29,7 +29,7 @@
     Copyright         = '(c) 2017 Petter Fors. All rights reserved.'
 
     # Description of the functionality provided by this module
-    # Description = ''
+    Description = 'Module for Cisco APIC-EM'
 
     # Minimum version of the Windows PowerShell engine required by this module
     # PowerShellVersion = ''
