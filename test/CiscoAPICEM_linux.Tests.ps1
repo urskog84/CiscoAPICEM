@@ -10,7 +10,7 @@ if ($PSVersionTable.PSEdition -eq 'Core') {
     $PSDefaultParameterValues.Add("Invoke-WebRequest:SkipCertificateCheck", $true)
 }
 else {
-    Add-Type -TypeDefinition @"
+    Add-Type @"
         using System.Net;
         using System.Security.Cryptography.X509Certificates;
         public class TrustAllCertsPolicy : ICertificatePolicy {
@@ -25,8 +25,8 @@ else {
 }#ifelse
 
 Describe 'Core or Not Core' {
-    it {
-        $PSVersionTable.PSEdition | Should -MatchExactly "Core"
+    it 'CORE PSEdition' {
+        test-path -path Variable:PSVersionTable.PSEdition | Should -MatchExactly "Core"
     }
 }
 
