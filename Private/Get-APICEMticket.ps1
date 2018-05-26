@@ -33,7 +33,7 @@ function Get-APICEMticket {
 "@
     }
     Process {
-        $response = Invoke-RestMethod -Uri $URIaddress -ContentType 'application/json'-Method Post -Body $JsonBody
+        $response = Invoke-RestMethod -Uri $URIaddress -ContentType 'application/json'-Method Post -Body $JsonBody -SkipCertificateCheck
         return $response
 
     }
