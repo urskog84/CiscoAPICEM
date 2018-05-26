@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="24" errors="0" failures="2" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2018-05-26" time="13:27:58">
+  <environment cwd="C:\GIT\CiscoAPICEM\test" user="petter" machine-name="DESKTOP-PLMQI0V" user-domain="DESKTOP-PLMQI0V" platform="Microsoft Windows 10 Pro|C:\WINDOWS|\Device\Harddisk0\Partition3" nunit-version="2.5.8.0" os-version="10.0.16299" clr-version="4.0.30319.42000" />
+  <culture-info current-culture="sv-SE" current-uiculture="en-US" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Failure" success="False" time="4.9942" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="C:\GIT\CiscoAPICEM\test\CiscoAPICEM.Tests.ps1" executed="True" result="Failure" success="False" time="4.9942" asserts="0" description="C:\GIT\CiscoAPICEM\test\CiscoAPICEM.Tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="Module Manifest Tests" executed="True" result="Success" success="True" time="0.1687" asserts="0" description="Module Manifest Tests">
+            <results>
+              <test-case description="Passes Test-ModuleManifest" name="Module Manifest Tests.Passes Test-ModuleManifest" time="0.1687" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMticket" executed="True" result="Success" success="True" time="0.7023" asserts="0" description="Get-APICEMticket">
+            <results>
+              <test-case description="Test Tciket funtion" name="Get-APICEMticket.Test Tciket funtion" time="0.7023" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Connect-APICEM" executed="True" result="Success" success="True" time="0.29" asserts="0" description="Connect-APICEM">
+            <results>
+              <test-case description="Connection to APIC-EM" name="Connect-APICEM.Connection to APIC-EM" time="0.272" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Test Global Variable" name="Connect-APICEM.Test Global Variable" time="0.018" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMnetworkDevice" executed="True" result="Success" success="True" time="0.4722" asserts="0" description="Get-APICEMnetworkDevice">
+            <results>
+              <test-case description="Getting Neworkdevices" name="Get-APICEMnetworkDevice.Getting Neworkdevices" time="0.4722" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMhost" executed="True" result="Failure" success="False" time="0.6099" asserts="0" description="Get-APICEMhost">
+            <results>
+              <test-case description="list all host" name="Get-APICEMhost.list all host" time="0.356" asserts="0" success="False" result="Failure" executed="True">
+                <failure>
+                  <message>Expected {} to be greater than {0}</message>
+                  <stack-trace>at &lt;ScriptBlock&gt;, C:\GIT\CiscoAPICEM\test\CiscoAPICEM.Tests.ps1: line 70
+70:         $APICHosts.Count | Should -BeGreaterThan 0</stack-trace>
+                </failure>
+              </test-case>
+              <test-case description="list host with mac 5c:f9:dd:52:07:78" name="Get-APICEMhost.list host with mac 5c:f9:dd:52:07:78" time="0.1293" asserts="0" success="False" result="Failure" executed="True">
+                <failure>
+                  <message>Expected: {5c:f9:dd:52:07:78}
+But was:  {}</message>
+                  <stack-trace>at &lt;ScriptBlock&gt;, C:\GIT\CiscoAPICEM\test\CiscoAPICEM.Tests.ps1: line 75
+75:         $APICHost.hostMac | Should -Be "5c:f9:dd:52:07:78"</stack-trace>
+                </failure>
+              </test-case>
+              <test-case description="list host with ip 10.1.15.117" name="Get-APICEMhost.list host with ip 10.1.15.117" time="0.1246" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMpnp-device" executed="True" result="Success" success="True" time="0.1438" asserts="0" description="Get-APICEMpnp-device">
+            <results>
+              <test-case description="Get all pnp devices" name="Get-APICEMpnp-device.Get all pnp devices" time="0.1438" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMnetworkDevoceConfig" executed="True" result="Success" success="True" time="0.2303" asserts="0" description="Get-APICEMnetworkDevoceConfig">
+            <results>
+              <test-case description="Get all network Devoce Config" name="Get-APICEMnetworkDevoceConfig.Get all network Devoce Config" time="0.2303" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMinterface" executed="True" result="Success" success="True" time="0.7922" asserts="0" description="Get-APICEMinterface">
+            <results>
+              <test-case description="Get all interface" name="Get-APICEMinterface.Get all interface" time="0.349" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Get all inteface from NetwrokDeviceID" name="Get-APICEMinterface.Get all inteface from NetwrokDeviceID" time="0.216" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Get inteface from NetwrokDeviceID filter by InterfaceName" name="Get-APICEMinterface.Get inteface from NetwrokDeviceID filter by InterfaceName" time="0.1162" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Get all inteface from inteface ip address " name="Get-APICEMinterface.Get all inteface from inteface ip address " time="0.111" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMvlan" executed="True" result="Success" success="True" time="0.2907" asserts="0" description="Get-APICEMvlan">
+            <results>
+              <test-case description="Get all vlan from NetworkDevice id" name="Get-APICEMvlan.Get all vlan from NetworkDevice id" time="0.1691" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Get all Subinterface from NetworkDevice id" name="Get-APICEMvlan.Get all Subinterface from NetworkDevice id" time="0.1216" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-GlobalCredental" executed="True" result="Success" success="True" time="0.2462" asserts="0" description="Get-GlobalCredental">
+            <results>
+              <test-case description="Get all GlobalCredentals with sub type CLI " name="Get-GlobalCredental.Get all GlobalCredentals with sub type CLI " time="0.1356" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="Get Specific GlobalCredental from ID" name="Get-GlobalCredental.Get Specific GlobalCredental from ID" time="0.1105" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Add-APICEMfile" executed="True" result="Success" success="True" time="0.254" asserts="0" description="Add-APICEMfile">
+            <results>
+              <test-case description="Upload Config file POD-SWA-02.txt" name="Add-APICEMfile.Upload Config file POD-SWA-02.txt" time="0.254" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMfile" executed="True" result="Success" success="True" time="0.1536" asserts="0" description="Get-APICEMfile">
+            <results>
+              <test-case description="List all files" name="Get-APICEMfile.List all files" time="0.1536" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Remove-APICEMfile" executed="True" result="Success" success="True" time="0.2302" asserts="0" description="Remove-APICEMfile">
+            <results>
+              <test-case description="Remove file POD-SWA-02.txt " name="Remove-APICEMfile.Remove file POD-SWA-02.txt " time="0.2302" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Get-APICEMpnpProject" executed="True" result="Success" success="True" time="0.176" asserts="0" description="Get-APICEMpnpProject">
+            <results>
+              <test-case description="List all pnpProject" name="Get-APICEMpnpProject.List all pnpProject" time="0.176" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Add-APICEMpnpProject" executed="True" result="Success" success="True" time="0.1903" asserts="0" description="Add-APICEMpnpProject">
+            <results>
+              <test-case description="Add a pnpProject" name="Add-APICEMpnpProject.Add a pnpProject" time="0.1903" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Disconnect-APICEM" executed="True" result="Success" success="True" time="0.0441" asserts="0" description="Disconnect-APICEM">
+            <results>
+              <test-case description="remove Global vaibale" name="Disconnect-APICEM.remove Global vaibale" time="0.0441" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

@@ -4,13 +4,12 @@ jobs:
     docker:
       - image: ubuntu:17.10
     steps:
-      - checkout
       - run:
           name: Apt update
           command: apt-get update
       - run:
           name: Apt curl
-          command: apt-get install -y curl wget gnupg gnupg2 gnupg1 libc6 libgcc1 libgssapi-krb5-2 liblttng-ust0 libstdc++6 libcurl3 libunwind8 libuuid1 zlib1g libssl1.0.0 libicu57
+          command: apt-get install -y curl wget git gnupg gnupg2 gnupg1 libc6 libgcc1 libgssapi-krb5-2 liblttng-ust0 libstdc++6 libcurl3 libunwind8 libuuid1 zlib1g libssl1.0.0 libicu57
       - run:
           name: apt-key
           command: 'wget --no-check-certificate -qO - https://packages.microsoft.com/keys/microsoft.asc | apt-key add -'
@@ -32,3 +31,4 @@ jobs:
       - run:
           name: Start powershell
           command: pwsh -command "get-host"
+      - checkout
