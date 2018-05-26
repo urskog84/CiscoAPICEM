@@ -33,10 +33,10 @@ jobs:
           command: pwsh -command "get-host"
       - checkout
       - run:
-          name: ls
+          name: Pester Test
           command: |
             pwsh -command "Install-Module -Name Pester -Force -SkipPublisherCheck "
-            pwsh -command "Invoke-Pester -Script /test/CiscoAPICEM_linux.Tests.ps1 -OutputFile TestResult.xml -OutputFormat NUnitXml"
+            pwsh -command "Invoke-Pester -Script ./test/CiscoAPICEM_linux.Tests.ps1 -OutputFile TestResult.xml -OutputFormat NUnitXml"
       - store_test_results:
           path: TestResult.xml
 
