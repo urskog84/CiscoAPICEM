@@ -32,3 +32,6 @@ jobs:
           name: Start powershell
           command: pwsh -command "get-host"
       - checkout
+      - run:
+          name: ls
+          command: ls
