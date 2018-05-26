@@ -24,6 +24,12 @@ else {
     [System.Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
 }#ifelse
 
+Describe 'Core or Not Core' {
+    it {
+        $PSVersionTable.PSEdition | Should -MatchExactly "Core"
+    }
+}
+
 Describe 'Module Manifest Tests' {
     It 'Passes Test-ModuleManifest' {
         Test-ModuleManifest -Path $ModuleManifestPath
