@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:17.10
+      - image: ubuntu:17.04
     steps:
       - checkout
       - run:
@@ -24,7 +24,7 @@ jobs:
           name: Apt install
           command: apt-get -f install -y powershell
       - run:
-          name: os-relses
+          name: os-release
           command: cat /etc/os-release 
       - run:
           name: Start powershell
