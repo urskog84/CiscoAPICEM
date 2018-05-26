@@ -3,14 +3,14 @@ $ModuleManifestName = 'CiscoAPICEM.psd1'
 $ModuleManifestPath = "$PSScriptRoot/../$ModuleManifestName"
 
 
-function Set-CertPolicy {
-    # Allow untrusted SSL certs
-    if ($PSVersionTable.PSEdition -eq 'Core') {
-        $PSDefaultParameterValues.Add("Invoke-RestMethod:SkipCertificateCheck", $true)
-        $PSDefaultParameterValues.Add("Invoke-WebRequest:SkipCertificateCheck", $true)
-    }
-    else {
-        Add-Type -TypeDefinition @"
+
+# Allow untrusted SSL certs
+if ($PSVersionTable.PSEdition -eq 'Core') {
+    $PSDefaultParameterValues.Add("Invoke-RestMethod:SkipCertificateCheck", $true)
+    $PSDefaultParameterValues.Add("Invoke-WebRequest:SkipCertificateCheck", $true)
+}
+else {
+    Add-Type -TypeDefinition @"
         using System.Net;
         using System.Security.Cryptography.X509Certificates;
         public class TrustAllCertsPolicy : ICertificatePolicy {
@@ -21,11 +21,8 @@ function Set-CertPolicy {
             }
         }
 "@
-        [System.Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
-    }#ifelse
-}#function
-
-Set-CertPolicy
+    [System.Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
+}#ifelse
 
 Describe 'Module Manifest Tests' {
     It 'Passes Test-ModuleManifest' {
