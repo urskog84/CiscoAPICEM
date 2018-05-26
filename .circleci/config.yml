@@ -34,4 +34,9 @@ jobs:
       - checkout
       - run:
           name: ls
-          command: ls
+          command: pwsh -command "Invoke-Pester -OutputFile TestResult.xml -OutputFormat NUnitXml"
+      - store_test_results
+          test-result
+            pester
+              TestResult.xml
+
