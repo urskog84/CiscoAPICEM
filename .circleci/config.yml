@@ -19,13 +19,13 @@ jobs:
           command: 'curl -o /etc/apt/sources.list.d/microsoft.list https://packages.microsoft.com/config/ubuntu/17.04/prod.list'
       - run:
           name: Apt update
-          command: apt-get update && apt-get upgrade -y
-      - run:
-          name: apt-cache policy
-          command: apt-cache policy powershell    
+          command: apt-get update && apt-get upgrade -y   
       - run:
           name: Apt install
-          command: apt-get -f install -y powershell=6.0.2
+          command: apt-get -f install -y powershell
+      - run:
+          name: apt-cache policy
+          command: apt-cache policy powershell
       - run:
           name: os-release
           command: cat /etc/os-release 
