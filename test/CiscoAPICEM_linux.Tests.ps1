@@ -1,6 +1,6 @@
 
 $ModuleManifestName = 'CiscoAPICEM.psd1'
-$ModuleManifestPath = "$PSScriptRoot\..\$ModuleManifestName"
+$ModuleManifestPath = "$PSScriptRoot/../$ModuleManifestName"
 
 
 <#
@@ -27,7 +27,7 @@ Describe 'Module Manifest Tests' {
 }
 
 
-Import-Module "$PSScriptRoot\..\CiscoAPICEM" -Force
+Import-Module "$PSScriptRoot/../CiscoAPICEM" -Force
 $APIC_HOST = "sandboxapic.cisco.com"
 
 
@@ -144,7 +144,7 @@ Describe 'Get-GlobalCredental' {
 
 Describe 'Add-APICEMfile' {
     it "Upload Config file POD-SWA-02.txt" {
-        $file = Add-APICEMfile -FilePath "$PSScriptRoot\POD-SWA-02.txt" -NameSpace config
+        $file = Add-APICEMfile -FilePath "$PSScriptRoot/POD-SWA-02.txt" -NameSpace config
         $file.response.name | Should -Be "POD-SWA-02.txt"
     }
 }
