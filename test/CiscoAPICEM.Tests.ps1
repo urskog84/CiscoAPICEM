@@ -11,7 +11,15 @@ Describe 'Module Manifest Tests' {
 }
 
 
-Import-Module "$PSScriptRoot\..\CiscoAPICEM" -Force
+
+if ($PSVersionTable.PSEdition -eq 'Core') {
+    Import-Module "$PSScriptRoot/../CiscoAPICEM" -Force
+}
+else {
+    Import-Module "$PSScriptRoot\..\CiscoAPICEM" -Force
+}
+
+
 $APIC_HOST = "sandboxapic.cisco.com"
 
 
