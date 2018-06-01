@@ -28,7 +28,7 @@ Function Remove-APICEMfile {
     
     }
     process {
-        $response = Invoke-RestMethod -Uri $uri -Method Delete -Headers $connect.Headers
+        $response = Invoke-Handeler -Uri $uri -Method Delete -Headers $connect.Headers
         return $response.response
     }
 }

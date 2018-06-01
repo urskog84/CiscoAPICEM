@@ -26,13 +26,13 @@ Function Get-APICEMinterface {
         [Parameter (Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
         [PSCustomObject]$connect = $Global:APICEMConnection,
-        [Parameter (Mandatory = $False, HelpMessage='NetworkDeviceID')]
+        [Parameter (Mandatory = $False, HelpMessage = 'NetworkDeviceID')]
         [ValidateNotNullOrEmpty()]
         [String]$NetworkDeviceID,
-        [Parameter (Mandatory = $False, HelpMessage='IpAddress')]
+        [Parameter (Mandatory = $False, HelpMessage = 'IpAddress')]
         [ValidateNotNullOrEmpty()]
         [String]$Ip,
-        [Parameter (Mandatory = $False, HelpMessage='InterfaceName')]
+        [Parameter (Mandatory = $False, HelpMessage = 'InterfaceName')]
         [ValidateNotNullOrEmpty()]
         [String]$InterfaceName
         
@@ -41,13 +41,13 @@ Function Get-APICEMinterface {
     Begin {
         if ($NetworkDeviceID) {
             $Uri = $connect.baseURL + "/interface/network-device/" + $NetworkDeviceID
-            }
+        }
         if ($NetworkDeviceID -and $InterfaceName) {
-                $intname = $InterfaceName.Replace("/","%2F")
-                Write-Verbose -Message $intname
-                $Uri = $connect.baseURL + "/interface/network-device/" + $NetworkDeviceID + "/interface-name?name=" + $intname
-                    }
-        elseif ($ip){
+            $intname = $InterfaceName.Replace("/", "%2F")
+            Write-Verbose -Message $intname
+            $Uri = $connect.baseURL + "/interface/network-device/" + $NetworkDeviceID + "/interface-name?name=" + $intname
+        }
+        elseif ($ip) {
             $Uri = $connect.baseURL + "/interface/ip-address/" + $ip
         }
         else {
@@ -55,7 +55,7 @@ Function Get-APICEMinterface {
         }
     }
     Process {
-        $Response = Invoke-RestMethod -Uri $Uri -Method "Get" -Headers $connect.Headers
+        $Response = Invoke-Handeler -Uri $Uri -Method "Get" -Headers $connect.Headers
         return $Response.response
     }
 }

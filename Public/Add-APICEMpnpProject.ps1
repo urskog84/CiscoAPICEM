@@ -43,7 +43,7 @@ Function Add-APICEMpnpProject {
     }
     Process {
         Write-Verbose $jsonbody
-        $response = Invoke-RestMethod -Uri $Uri -Method Post -Headers $connect.Headers -Body $jsonbody
+        $response = Invoke-Handeler -Uri $Uri -Method Post -Headers $connect.Headers -Body $jsonbody
         return $response.response
     }
 }

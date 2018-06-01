@@ -23,7 +23,7 @@ Function Get-APICEMpnpProject {
     }
 
     Process {
-        $Response = Invoke-RestMethod -Uri $Uri -Method Get -Headers $connect.Headers
+        $Response = Invoke-Handeler -Uri $Uri -Method Get -Headers $connect.Headers
         return $Response.response
     }
 }

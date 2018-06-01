@@ -28,7 +28,7 @@ Function Get-APICEMfile {
     
     }
     process {
-        $response = Invoke-RestMethod -Uri $uri -Method Get -Headers $connect.Headers
+        $response = Invoke-Handeler -Uri $uri -Method Get # -Headers $connect.Headers
         return $response.response
     }
 }

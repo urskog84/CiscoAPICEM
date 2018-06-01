@@ -30,8 +30,7 @@ Function Add-APICEMfile {
         if (Test-Path -Path $FilePath) {
         }
         else {
-            Write-Error "Not valid path"
-            throw
+            throw "$FilePath Not valid path"            
         }
 
         $fileName = $FilePath.Split("\")[-1]
@@ -64,6 +63,6 @@ Function Add-APICEMfile {
     }
     process {
         write-Verbose $bodyLines
-        Invoke-RestMethod -Uri $uri -Method Post -ContentType "multipart/form-data; boundary=$boundary" -Headers $connect.Headers -Body $bodyLines
+        Invoke-Handeler -Uri $uri -Method Post -ContentType "multipart/form-data; boundary=$boundary" -Headers $connect.Headers -Body $bodyLines
     }
 }

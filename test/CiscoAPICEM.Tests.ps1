@@ -3,22 +3,6 @@ $ModuleManifestName = 'CiscoAPICEM.psd1'
 $ModuleManifestPath = "$PSScriptRoot\..\$ModuleManifestName"
 
 
-
-
-add-type @"
-    using System.Net;
-    using System.Security.Cryptography.X509Certificates;
-    public class TrustAllCertsPolicy : ICertificatePolicy {
-        public bool CheckValidationResult(
-            ServicePoint srvPoint, X509Certificate certificate,
-            WebRequest request, int certificateProblem) {
-            return true;
-        }
-    }
-"@
-[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
-
-
 Describe 'Module Manifest Tests' {
     It 'Passes Test-ModuleManifest' {
         Test-ModuleManifest -Path $ModuleManifestPath
@@ -37,7 +21,7 @@ $APIC_CRED = New-Object System.Management.Automation.PSCredential ("devnetuser",
 
 
 Describe 'Get-APICEMticket' { 
-    it "Test Tciket funtion" {
+    it "Test Ticket funtion" {
         $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST
         $token.response.serviceTicket            | Should -Match "-cas"
         $token.response.idleTimeout.Count         | Should -Be 1
@@ -54,6 +38,9 @@ Describe 'Connect-APICEM' {
     }
     it "Test Global Variable" {
         test-path -path Variable:APICEMConnection | Should -Be $true
+    }
+    it "Non Correct Host" {
+        {Connect-APICEM -APICServer nonvalidhost.com -Credential $APIC_cred} | Should -no -Throw 
     }
 }
 
@@ -141,15 +128,6 @@ Describe 'Get-GlobalCredental' {
     }
 }
 
-
-Describe 'Add-APICEMfile' {
-    it "Upload Config file POD-SWA-02.txt" {
-        $file = Add-APICEMfile -FilePath "$PSScriptRoot\POD-SWA-02.txt" -NameSpace config
-        $file.response.name | Should -Be "POD-SWA-02.txt"
-    }
-}
-
-
 Describe 'Get-APICEMfile' {
     it "List all files" {
         $allFiles = Get-APICEMfile -NameSpace config
@@ -157,6 +135,23 @@ Describe 'Get-APICEMfile' {
     }
 }
 
+
+Describe 'Add-APICEMfile' {
+    it "Upload Config file POD-SWA-02.txt" {
+        $file = Add-APICEMfile -FilePath $PSScriptRoot\POD-SWA-02.txt -NameSpace config
+        $file.response.name | Should -Be "POD-SWA-02.txt"
+    }
+    it "Not Valid path" {
+        { Add-APICEMfile -FilePath .\POD-SWA.txt -NameSpace config } | Should -Throw ".\POD-SWA.txt Not valid path"
+    }
+}
+
+Describe 'Get-APICEMfile' {
+    it "List all files" {
+        $allFiles = Get-APICEMfile -NameSpace config
+        $allFiles.count | Should -BeGreaterThan 0
+    }
+}
 
 # Setup fore Remove-APICEMfile
 $allFiles = Get-APICEMfile -NameSpace config 
@@ -173,14 +168,14 @@ Describe 'Get-APICEMpnpProject' {
     it "List all pnpProject" {
         $test = Get-APICEMpnpProject
         $test.count | Should -BeGreaterThan 0
-        $test[0].provisionedBy | Should -MatchExactly "devnetuser"
+        $test[1].provisionedBy | Should -MatchExactly "admin"
     }
 }
 
 
 Describe 'Add-APICEMpnpProject' {
     it "Add a pnpProject" {
-        $test = Add-APICEMpnpProject -state IN_PROGRESS -siteName FSP -tftpServer "192.168.1.20" -tftpPath "/"  -Verbose
+        $test = Add-APICEMpnpProject -state IN_PROGRESS -siteName FSP -tftpServer "192.168.1.20" -tftpPath "/"
         $test.taskId | Should -not -be $null
         $test.url | Should -not -be $null
     }

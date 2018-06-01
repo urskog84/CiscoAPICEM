@@ -3,11 +3,6 @@ $ModuleManifestName = 'CiscoAPICEM.psd1'
 $ModuleManifestPath = "$PSScriptRoot/../$ModuleManifestName"
 
 
-
-
-$PSDefaultParameterValues.Add("Invoke-RestMethod:SkipCertificateCheck", $true)
-$PSDefaultParameterValues.Add("Invoke-WebRequest:SkipCertificateCheck", $true)
-
 Describe 'Module Manifest Tests' {
     It 'Passes Test-ModuleManifest' {
         Test-ModuleManifest -Path $ModuleManifestPath
@@ -26,17 +21,18 @@ $APIC_CRED = New-Object System.Management.Automation.PSCredential ("devnetuser",
 
 
 Describe 'Get-APICEMticket' { 
-    it "Test Tciket funtion" {
-        $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST
+    it "Test Ticket funtion" {
+        $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST -SkipCertificateCheck $true
         $token.response.serviceTicket            | Should -Match "-cas"
         $token.response.idleTimeout.Count         | Should -Be 1
         $token.response.sessionTimeout.Count      | Should -Be 1
     }
 }
 
+
 Describe 'Connect-APICEM' {
     it "Connection to APIC-EM" {
-        $APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
+        $APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred -SkipCertificateCheck $true
         $APIPConnection.PSobject.Properties.name[0] | Should BeExactly "APITicket"
         $APIPConnection.PSobject.Properties.name[1] |  Should BeExactly "baseURL"
         $APIPConnection.PSobject.Properties.name[2] | Should BeExactly "headers"
@@ -46,18 +42,19 @@ Describe 'Connect-APICEM' {
     }
 }
 
+
+Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred -SkipCertificateCheck $true
+
 Describe 'Get-APICEMnetworkDevice' {
     it "Getting Neworkdevices" {
-        $APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
-        $Devices = Get-APICEMnetworkDevice -connect $APIPConnection
+        $Devices = Get-APICEMnetworkDevice
         $Devices.Count | Should -BeGreaterThan 0
     }
 }
 
 Describe 'Get-APICEMhost' {
     it "list all host" {
-        $APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
-        $APICHosts = Get-APICEMhost -connect $APIPConnection
+        $APICHosts = Get-APICEMhost
         $APICHosts.Count | Should -BeGreaterThan 0
     }
     it "list host with mac 5c:f9:dd:52:07:78" {

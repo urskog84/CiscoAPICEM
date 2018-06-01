@@ -18,10 +18,10 @@ Function Get-APICEMhost {
         [Parameter (Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
         [PSCustomObject]$connect = $Global:APICEMConnection,
-        [Parameter (Mandatory = $False, HelpMessage='MacAddress')]
+        [Parameter (Mandatory = $False, HelpMessage = 'MacAddress')]
         [ValidateNotNullOrEmpty()]
         [String]$Mac,
-        [Parameter (Mandatory = $False, HelpMessage='IpAddress')]
+        [Parameter (Mandatory = $False, HelpMessage = 'IpAddress')]
         [ValidateNotNullOrEmpty()]
         [String]$Ip
     )
@@ -31,7 +31,7 @@ Function Get-APICEMhost {
             $mac = Convert-MacAddress -mac $mac
             $Uri = $connect.baseURL + "/host?hostMac=" + $mac
         }
-        elseif ($ip){
+        elseif ($ip) {
             $Uri = $connect.baseURL + "/host?hostIp=" + $ip
         }
         else {
@@ -39,7 +39,7 @@ Function Get-APICEMhost {
         }
     }
     Process {
-        $Response = Invoke-RestMethod -Uri $Uri -Method "Get" -Headers $connect.Headers
+        $Response = Invoke-Handeler -Uri $Uri -Method "Get" -Headers $connect.Headers
         return $Response.response
     }
 }

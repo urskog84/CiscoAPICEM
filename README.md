@@ -17,3 +17,8 @@ Powershell Modue for Cisco APIC-EM
     - Get-APICEMhost
     - Get-APICEMpnpdice
     - Get-APICEMnetwrokDevice
+
+# TO DO
+- Publish to PowerShell Gallery
+- Continuous delivery with circleci.com
+- Powershell v6 Support

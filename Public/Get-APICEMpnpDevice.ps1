@@ -1,5 +1,5 @@
 Function GET-APICEMpnpDevice {
-<#
+    <#
 
 .SYNOPSIS
  GET all devices from APIC Controller
@@ -20,10 +20,10 @@ Get-APICEMnetwokrDevice -Computername $APIC_HOST -APICticket $APICticket
     )
 
     Begin {
-            $Uri = $connect.baseURL + "/pnp-device?matchDeviceState=true&offset=1&limit=10"
-        }
+        $Uri = $connect.baseURL + "/pnp-device?matchDeviceState=true&offset=1&limit=10"
+    }
     Process {
-        $Response = Invoke-RestMethod -Uri $Uri -Method "Get" -Headers $connect.Headers
+        $Response = Invoke-Handeler -Uri $Uri -Method "Get" -Headers $connect.Headers
         return $Response.response
     }
 }

@@ -16,9 +16,10 @@ function Get-APICEMticket {
         [ValidateNotNullorEmpty()]
         [System.Management.Automation.PSCredential]$Credential,
         [Parameter(Mandatory = $true, Position = 1, HelpMessage = "hostname.domain.com")]
-        [String]$Computername
-        
-
+        [String]$Computername,
+        [Parameter (Mandatory = $false, HelpMessage = 'SkipCertificateCheck')]
+        # [ValidateSet($false, $true)]
+        [bool]$SkipCertificateCheck = $false
     )
     Begin {
         $URIaddress = "https://$Computername/api/v1/ticket"
@@ -33,7 +34,7 @@ function Get-APICEMticket {
 "@
     }
     Process {
-        $response = Invoke-RestMethod -Uri $URIaddress -ContentType 'application/json'-Method Post -Body $JsonBody -SkipCertificateCheck
+        $response = Invoke-Handeler -Uri $URIaddress -ContentType 'application/json' -Method Post -Body $JsonBody
         return $response
 
     }

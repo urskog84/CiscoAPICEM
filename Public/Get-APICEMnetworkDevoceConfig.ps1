@@ -11,21 +11,21 @@ Get-APICEMnetwokrDevice -Computername $APIC_HOST -APICticket $APICticket
 
 #>
 
-Function Get-APICEMnetworkDevoceConfig{
+Function Get-APICEMnetworkDevoceConfig {
     [OutputType([system.object[]])]
     [cmdletbinding()]
     param(
-        [Parameter (Mandatory=$False)]
+        [Parameter (Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
-        [PSCustomObject]$connect=$Global:APICEMConnection
-        )
+        [PSCustomObject]$connect = $Global:APICEMConnection
+    )
 
     Begin {
         $Uri = $connect.baseURL + "/network-device/config"
-        }
+    }
 
     Process {
-        $Response = Invoke-RestMethod -Uri $Uri -Method "Get" -Headers $connect.Headers
+        $Response = Invoke-Handeler -Uri $Uri -Method "Get" -Headers $connect.Headers
         return $Response.response
     }
 }
