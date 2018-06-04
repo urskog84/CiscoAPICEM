@@ -30,7 +30,7 @@ $APIC_CRED = New-Object System.Management.Automation.PSCredential ("devnetuser",
 
 Describe 'Get-APICEMticket' { 
     it "Test Ticket funtion" {
-        $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST
+        $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST -SkipCertificateCheck:$true
         $token.response.serviceTicket            | Should -Match "-cas"
         $token.response.idleTimeout.Count         | Should -Be 1
         $token.response.sessionTimeout.Count      | Should -Be 1
