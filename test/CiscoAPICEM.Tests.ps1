@@ -30,6 +30,12 @@ $APIC_CRED = New-Object System.Management.Automation.PSCredential ("devnetuser",
 
 Describe 'Get-APICEMticket' { 
     it "Test Ticket funtion" {
+        $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST
+        $token.response.serviceTicket            | Should -Match "-cas"
+        $token.response.idleTimeout.Count         | Should -Be 1
+        $token.response.sessionTimeout.Count      | Should -Be 1
+    }
+    it "Test Ticket funtion -SkipCertificateCheck:$true" {
         $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST -SkipCertificateCheck:$true -Verbose
         $token.response.serviceTicket            | Should -Match "-cas"
         $token.response.idleTimeout.Count         | Should -Be 1
@@ -39,7 +45,7 @@ Describe 'Get-APICEMticket' {
 
 Describe 'Connect-APICEM' {
     it "Connection to APIC-EM" {
-        $APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
+        $APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred -SkipCertificateCheck:$true
         $APIPConnection.PSobject.Properties.name[0] | Should BeExactly "APITicket"
         $APIPConnection.PSobject.Properties.name[1] |  Should BeExactly "baseURL"
         $APIPConnection.PSobject.Properties.name[2] | Should BeExactly "headers"
