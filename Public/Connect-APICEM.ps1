@@ -15,8 +15,7 @@ function Connect-APICEM {
             #Allow untrusted SSL certs
             if (($PSVersionTable.PSEdition -eq 'Core')) {
                 $PSDefaultParameterValues = $null
-                $PSDefaultParameterValues.Add("Invoke-RestMethod:SkipCertificateCheck", $true)
-                $PSDefaultParameterValues.Add("Invoke-WebRequest:SkipCertificateCheck", $true)
+
             }
             else {
                 if ( [System.Net.ServicePointManager]::CertificatePolicy.ToString() -ne "TrustAllCertsPolicy" ) {
