@@ -1,7 +1,7 @@
 
 $ModuleManifestName = 'CiscoAPICEM.psd1'
 $ModuleManifestPath = "$PSScriptRoot\..\$ModuleManifestName"
-
+$APIC_HOST = "sandboxapic.cisco.com"
 
 Describe 'Module Manifest Tests' {
     It 'Passes Test-ModuleManifest' {
@@ -20,7 +20,7 @@ else {
 }
 
 
-$APIC_HOST = "sandboxapic.cisco.com"
+
 
 
 # Create PSCredential Oject
@@ -48,7 +48,7 @@ Describe 'Connect-APICEM' {
         test-path -path Variable:APICEMConnection | Should -Be $true
     }
     it "Non Correct Host" {
-        {Connect-APICEM -APICServer nonvalidhost.com -Credential $APIC_cred} | Should -no -Throw 
+        {Connect-APICEM -APICServer nonvalidhost.com -Credential $APIC_cred} | Should -Throw 
     }
 }
 
@@ -181,6 +181,8 @@ Describe 'Get-APICEMpnpProject' {
 }
 
 
+
+
 Describe 'Add-APICEMpnpProject' {
     it "Add a pnpProject" {
         $test = Add-APICEMpnpProject -state IN_PROGRESS -siteName FSP -tftpServer "192.168.1.20" -tftpPath "/"
@@ -190,10 +192,30 @@ Describe 'Add-APICEMpnpProject' {
 }
 
 
+$siteFSP = Get-APICEMpnpProject | Where-Object {$_.siteName -eq "FSP"}
 
+Describe "Add-APICEMpnpDevice" {
+    it "Add a pnpDevice" {
+        $pnpDevice = Add-APICEMpnpDevice -projectid $siteFSP.id -serialNumber "FOC1637Y2GJ" -platformid "WS-C3850-24P" -hostName "FSSWI-DA-02"
+        $pnpDevice.taskId | Should -not -be $null
+        $pnpDevice.url | Should -not -be $null
+    }
+}
+
+
+Describe "Delete-APICEMpnpProject" {
+    it "Delete a pnpProject" {
+        $pnpDevice = Remove-APICEMpnpProject -projectid $siteFSP.id 
+        $pnpDevice.taskId | Should -not -be $null
+        $pnpDevice.url | Should -not -be $null
+    }
+}
+
+<#
 Describe 'Disconnect-APICEM' {
     it "remove Global vaibale" {
         Disconnect-APICEM
         test-path -path Variable:APICEMConnection | Should -Be $false
     }
 }
+#>
