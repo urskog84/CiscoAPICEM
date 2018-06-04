@@ -14,9 +14,11 @@ Describe 'Module Manifest Tests' {
 
 if ($PSVersionTable.PSEdition -eq 'Core') {
     Import-Module "$PSScriptRoot/../CiscoAPICEM" -Force
+    $testFile = "$PSScriptRoot/POD-SWA-02.txt"
 }
 else {
     Import-Module "$PSScriptRoot\..\CiscoAPICEM" -Force
+    $testFile = "$PSScriptRoot\POD-SWA-02.txt"
 }
 
 
@@ -60,16 +62,14 @@ Describe 'Connect-APICEM' {
 
 Describe 'Get-APICEMnetworkDevice' {
     it "Getting Neworkdevices" {
-        $APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
-        $Devices = Get-APICEMnetworkDevice -connect $APIPConnection
+        $Devices = Get-APICEMnetworkDevice
         $Devices.Count | Should -BeGreaterThan 0
     }
 }
 
 Describe 'Get-APICEMhost' {
     it "list all host" {
-        $APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
-        $APICHosts = Get-APICEMhost -connect $APIPConnection
+        $APICHosts = Get-APICEMhost
         $APICHosts.Count | Should -BeGreaterThan 0
     }
     it "list host with mac 5c:f9:dd:52:07:78" {
@@ -150,9 +150,10 @@ Describe 'Get-APICEMfile' {
 }
 
 
+
 Describe 'Add-APICEMfile' {
     it "Upload Config file POD-SWA-02.txt" {
-        $file = Add-APICEMfile -FilePath $PSScriptRoot\POD-SWA-02.txt -NameSpace config
+        $file = Add-APICEMfile -FilePath $testFile -NameSpace config
         $file.response.name | Should -Be "POD-SWA-02.txt"
     }
     it "Not Valid path" {
