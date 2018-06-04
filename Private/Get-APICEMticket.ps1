@@ -34,6 +34,10 @@ function Get-APICEMticket {
 "@
     }
     Process {
+        if ($PSVersionTable.PSEdition -eq 'Core' -and $SkipCertificateCheck ) {
+            $response = Invoke-RestMethod -Uri $URIaddress -ContentType 'application/json' -Method Post -Body $JsonBody -SkipCertificateCheck
+        }
+
         $response = Invoke-Handeler -Uri $URIaddress -ContentType 'application/json' -Method Post -Body $JsonBody
         return $response
 
