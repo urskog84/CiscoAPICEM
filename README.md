@@ -2,6 +2,10 @@
 Powershell Modue for Cisco APIC-EM
 
 # Release Notes
+- 0.1.4
+    - Fix minor bug in
+        * Add-APICEMpnpDevice - fix property discoveryPassword [ValidateNotNullOrEmpty] 
+        * Add-APICEMfile - add retrun statmanet
 - 0.1.3
     - Add-APICMpnpDevice
     - Remove-APICEMpnpProject
