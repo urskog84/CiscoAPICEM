@@ -16,11 +16,18 @@ Get-APICEMnetwokrDevice -Computername $APIC_HOST -APICticket $APICticket
     param(
         [Parameter (Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
-        [PSCustomObject]$connect = $Global:APICEMConnection
+        [PSCustomObject]$connect = $Global:APICEMConnection,
+        [Parameter (Mandatory = $False)]
+        [ValidateNotNullOrEmpty()]
+        [string]$hostanme
     )
-
     Begin {
-        $Uri = $connect.baseURL + "/pnp-device?matchDeviceState=true&offset=1&limit=10"
+        if ($hostanme) {
+            $Uri = $connect.baseURL + "/pnp-device?hostname=" + $hostanme    
+        }
+        else {
+            $Uri = $connect.baseURL + "/pnp-device?matchDeviceState=true&offset=1&limit=500"
+        }
     }
     Process {
         $Response = Invoke-Handeler -Uri $Uri -Method "Get" -Headers $connect.Headers

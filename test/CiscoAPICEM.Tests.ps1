@@ -88,6 +88,12 @@ Describe 'Get-APICEMpnp-device' {
     it "Get all pnp devices" {
         $pnpdevices = Get-APICEMpnpDevice
         $pnpdevices | Should -no -BeNullOrEmpty
+        $pnpdevices.count | Should -BeGreaterThan 10
+    }
+    it "Get 1 pnp devices -hostname" {
+        $pnpdevices = Get-APICEMpnpDevice -hostName "AHEC-2960C1"
+        $pnpdevices.hostName | Should -MatchExactly "AHEC-2960C1"
+        $pnpdevices.count | Should -Be 1
     }
 }
 
@@ -182,7 +188,7 @@ Describe 'Remove-APICEMfile' {
 Describe 'Get-APICEMpnpProject' {
     it "List all pnpProject" {
         $test = Get-APICEMpnpProject
-        $test.count | Should -BeGreaterThan 0
+        $test.count | Should -BeGreaterThan 10
         $test[1].provisionedBy | Should -MatchExactly "admin"
     }
 }
@@ -206,6 +212,7 @@ Describe "Add-APICEMpnpDevice" {
         $pnpDevice = Add-APICEMpnpDevice -projectid $siteFSP.id -serialNumber "FOC1637Y2GJ" -platformid "WS-C3850-24P" -hostName "FSSWI-DA-02"
         $pnpDevice.taskId | Should -not -be $null
         $pnpDevice.url | Should -not -be $null
+
     }
 }
 

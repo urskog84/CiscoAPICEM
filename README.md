@@ -2,6 +2,10 @@
 Powershell Modue for Cisco APIC-EM
 
 # Release Notes
+- 0.1.5
+    - Get-APICEMpnpDevice | add property hostName
+    - Fix minor bug in
+        *  Get-APICEMpnpDevice | Only retruns first 10, now can retrun 500
 - 0.1.4
     - Fix minor bug in
         * Add-APICEMpnpDevice - fix property discoveryPassword [ValidateNotNullOrEmpty] 
