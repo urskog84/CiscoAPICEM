@@ -63,6 +63,7 @@ Function Add-APICEMfile {
     }
     process {
         write-Verbose $bodyLines
-        Invoke-Handeler -Uri $uri -Method Post -ContentType "multipart/form-data; boundary=$boundary" -Headers $connect.Headers -Body $bodyLines
+        $response = Invoke-Handeler -Uri $uri -Method Post -ContentType "multipart/form-data; boundary=$boundary" -Headers $connect.Headers -Body $bodyLines
+        return $response.response
     }
 }
