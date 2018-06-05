@@ -36,7 +36,7 @@ Function Add-APICEMpnpDevice {
         [ValidateNotNullOrEmpty()]
         [string]$discoveryUser,
         [Parameter (Mandatory = $False, HelpMessage = 'discoveryPassword')]
-        [ValidateNotNullOrEmpty]
+        [ValidateNotNullOrEmpty()]
         [string]$discoveryPassword
     )
     Begin {
