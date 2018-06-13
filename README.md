@@ -2,6 +2,10 @@
 Powershell Modue for Cisco APIC-EM
 
 # Release Notes
+- 0.1.6
+    - Adding Pester tests
+    - Fix Bug in
+        - Get-APICEMpnpDevice -hostName
 - 0.1.5
     - Get-APICEMpnpDevice | add property hostName
     - Fix minor bug in

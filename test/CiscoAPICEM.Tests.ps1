@@ -24,7 +24,6 @@ else {
 
 
 
-
 # Create PSCredential Oject
 $secpasswd = ConvertTo-SecureString "Cisco123!" -AsPlainText -Force
 $APIC_CRED = New-Object System.Management.Automation.PSCredential ("devnetuser", $secpasswd)
@@ -38,7 +37,7 @@ Describe 'Get-APICEMticket' {
         $token.response.sessionTimeout.Count      | Should -Be 1
     }
     it "Test Ticket funtion -SkipCertificateCheck:$true" {
-        $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST -SkipCertificateCheck:$true -Verbose
+        $token = Get-APICEMticket -Credential $APIC_CRED -Computername $APIC_HOST -SkipCertificateCheck:$true
         $token.response.serviceTicket            | Should -Match "-cas"
         $token.response.idleTimeout.Count         | Should -Be 1
         $token.response.sessionTimeout.Count      | Should -Be 1
@@ -88,12 +87,12 @@ Describe 'Get-APICEMpnp-device' {
     it "Get all pnp devices" {
         $pnpdevices = Get-APICEMpnpDevice
         $pnpdevices | Should -no -BeNullOrEmpty
-        $pnpdevices.count | Should -BeGreaterThan 10
+        $pnpdevices.count | Should -BeGreaterThan 1
     }
     it "Get 1 pnp devices -hostname" {
-        $pnpdevices = Get-APICEMpnpDevice -hostName "AHEC-2960C1"
+        $pnpdevices = Get-APICEMpnpDevice -hostname "AHEC-2960C1"
         $pnpdevices.hostName | Should -MatchExactly "AHEC-2960C1"
-        $pnpdevices.count | Should -Be 1
+        $pnpdevices[1]| Should -BeNullOrEmpty
     }
 }
 
@@ -155,12 +154,13 @@ Describe 'Get-APICEMfile' {
     }
 }
 
-
+write-host "Path to Configfile" -ForegroundColor Green
+write-host $testFile -ForegroundColor Green
 
 Describe 'Add-APICEMfile' {
     it "Upload Config file POD-SWA-02.txt" {
         $file = Add-APICEMfile -FilePath $testFile -NameSpace config
-        $file.response.name | Should -Be "POD-SWA-02.txt"
+        $file.name | Should -Be "POD-SWA-02.txt"
     }
     it "Not Valid path" {
         { Add-APICEMfile -FilePath .\POD-SWA.txt -NameSpace config } | Should -Throw ".\POD-SWA.txt Not valid path"
@@ -174,8 +174,8 @@ Describe 'Get-APICEMfile' {
     }
 }
 
-# Setup fore Remove-APICEMfile
-$allFiles = Get-APICEMfile -NameSpace config 
+# Setup fore Remove-APICEMfileGet-APICEMfile -NameSpace config -Verbose
+$allFiles = Get-APICEMfile -NameSpace config
 $removefile = $allFiles | Where-Object {$_.name -EQ "POD-SWA-02.txt"}
 Describe 'Remove-APICEMfile' {
     it "Remove file POD-SWA-02.txt " {
@@ -188,8 +188,8 @@ Describe 'Remove-APICEMfile' {
 Describe 'Get-APICEMpnpProject' {
     it "List all pnpProject" {
         $test = Get-APICEMpnpProject
-        $test.count | Should -BeGreaterThan 10
-        $test[1].provisionedBy | Should -MatchExactly "admin"
+        $test.count | Should -BeGreaterThan 3
+        $test[1].provisionedBy | Should -no -BeNullOrEmpty
     }
 }
 

@@ -19,11 +19,11 @@ Get-APICEMnetwokrDevice -Computername $APIC_HOST -APICticket $APICticket
         [PSCustomObject]$connect = $Global:APICEMConnection,
         [Parameter (Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
-        [string]$hostanme
+        [string]$hostName
     )
     Begin {
-        if ($hostanme) {
-            $Uri = $connect.baseURL + "/pnp-device?hostname=" + $hostanme    
+        if ($hostName) {
+            $Uri = $connect.baseURL + "/pnp-device?hostName=" + $hostName    
         }
         else {
             $Uri = $connect.baseURL + "/pnp-device?matchDeviceState=true&offset=1&limit=500"
