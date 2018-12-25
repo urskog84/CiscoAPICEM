@@ -69,7 +69,7 @@ Describe 'Get-APICEMnetworkDevice' {
 Describe 'Get-APICEMhost' {
     it "list all host" {
         $APICHosts = Get-APICEMhost
-        $APICHosts.Count | Should -BeGreaterThan 0
+        $APICHosts.hostIp.Count | Should -BeGreaterThan 0
     }
     it "list host with mac 5c:f9:dd:52:07:78" {
         #$APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
@@ -78,8 +78,8 @@ Describe 'Get-APICEMhost' {
     }
     it "list host with ip 10.1.15.117" {
         #$APIPConnection = Connect-APICEM -APICServer $APIC_HOST -Credential $APIC_cred
-        $APICHost = Get-APICEMhost -ip "10.1.15.117"
-        $APICHost.hostIp | Should -Be "10.1.15.117"
+        $APICHost = Get-APICEMhost -ip "10.2.1.22"
+        $APICHost.hostIp | Should -Be "10.2.1.22"
     }
 }
 
